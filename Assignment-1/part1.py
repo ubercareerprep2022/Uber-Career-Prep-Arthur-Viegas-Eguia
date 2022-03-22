@@ -19,4 +19,12 @@ def isStringPermutation(s1: str, s2: str) -> bool:
             return False
     return True
 
-print(isStringPermutation("asdf", "fsax"))
+def pairsThatEqualSum(inputArray: list, targetSum: int) -> list:
+    toSum = {}
+    pairsThatEqualSum = []
+    for item in inputArray:
+        if item in toSum:
+            pairsThatEqualSum.append((item, toSum[item]))
+        else:
+            toSum[targetSum - item] = item
+    return pairsThatEqualSum
