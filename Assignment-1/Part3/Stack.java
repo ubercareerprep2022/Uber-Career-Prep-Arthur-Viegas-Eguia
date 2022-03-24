@@ -1,4 +1,4 @@
-public class Stack<T>{
+public class Stack<T extends Comparable<T>>{
     private Node firstNode = null;
     private T minimumValue = null;
     private class Node{
@@ -21,7 +21,7 @@ public class Stack<T>{
         }
     }
 
-    public T returnMinimum(){
+    public T returnMinimumValue(){
         return minimumValue;
     }
 
@@ -71,20 +71,33 @@ public class Stack<T>{
         }
         return i;
     }
+
     public static void main(String[] args) {
         Stack<Integer> test = new Stack<>();
-        System.out.println(test.returnMinimum());
-        test.push(5);
-        System.out.println(test.returnMinimum());
-        test.push(7);
-        System.out.println(test.returnMinimum());
-        test.push(8);
-        System.out.println(test.returnMinimum());
-        test.push(4);
-        System.out.println(test.returnMinimum());
+        System.out.println(test.returnMinimumValue());
         test.push(10);
-        System.out.println(test.returnMinimum());
-        test.push(1);
-        System.out.println(test.returnMinimum());
+        System.out.println(test.returnMinimumValue());
+        test.push(11);
+        System.out.println(test.returnMinimumValue());
+        test.push(12);
+        System.out.println(test.returnMinimumValue());
+        test.push(13);
+        test.push(9);
+        System.out.println(test.returnMinimumValue());
+        test.push(15);
+        test.push(20);
+        System.out.println(test.returnMinimumValue());
+        test.push(5);
+        System.out.println(test.returnMinimumValue());
+        test.push(80);
+        test.push(81);
+        System.out.println(test.returnMinimumValue());
+        test.push(0);
+        System.out.println(test.returnMinimumValue());
+        test.push(82);
+        System.out.println(test.returnMinimumValue());
+        test.push(83);
+        test.push(9);
+        System.out.println(test.returnMinimumValue());
     }
 }
