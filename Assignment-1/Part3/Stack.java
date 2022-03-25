@@ -71,33 +71,4 @@ public class Stack<T extends Comparable<T>>{
         }
         return i;
     }
-
-    public static void main(String[] args) {
-        Stack<Integer> test = new Stack<>();
-        System.out.println(test.returnMinimumValue());
-        test.push(10);
-        System.out.println(test.returnMinimumValue());
-        test.push(11);
-        System.out.println(test.returnMinimumValue());
-        test.push(12);
-        System.out.println(test.returnMinimumValue());
-        test.push(13);
-        test.push(9);
-        System.out.println(test.returnMinimumValue());
-        test.push(15);
-        test.push(20);
-        System.out.println(test.returnMinimumValue());
-        test.push(5);
-        System.out.println(test.returnMinimumValue());
-        test.push(80);
-        test.push(81);
-        System.out.println(test.returnMinimumValue());
-        test.push(0);
-        System.out.println(test.returnMinimumValue());
-        test.push(82);
-        System.out.println(test.returnMinimumValue());
-        test.push(83);
-        test.push(9);
-        System.out.println(test.returnMinimumValue());
-    }
 }
