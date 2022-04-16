@@ -1,7 +1,7 @@
-public class Node <T> {
-    public T value;
+public class Node {
+    public int value;
     public Node nextNode = null;
-    Node(T value){
+    Node(int value){
         this.value = value;
     }
 }

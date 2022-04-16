@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class LinkedList{
     private Node firstNode = null;
 
@@ -24,7 +26,7 @@ public class LinkedList{
      * @param index the position of the object in the linked list
      */
     public void insert(Node node, int index) {
-        if(index > this.size()){
+        if(index > this.size() || index < 0){
             return;
         }
         if(index == 0) {
@@ -39,6 +41,23 @@ public class LinkedList{
             node.nextNode = iterate.nextNode;
             iterate.nextNode = node;
         }
+    }
+
+    /**
+     * Returns the element in the specified position of the list
+     * @param index the index which will have its element returned
+     * @return the element in position index, null if not in bounds
+     */
+    public Node elementAt(int index){
+        if(index > this.size() || index < 0){
+            return null;
+        }
+        Node iterate = firstNode;
+        for(int i = 0; i < index; i++){
+            iterate = iterate.nextNode;
+        }
+        return iterate;
+        
     }
 
     /**
@@ -75,12 +94,32 @@ public class LinkedList{
     */
 
     public Node pop(){
+        Node iterate = firstNode;
+        Node nodeBefore = firstNode;
         if(firstNode != null) {
-            Node returnValue = firstNode;
-            firstNode = firstNode.nextNode;
-            return returnValue;
+            if(firstNode.nextNode != null){
+                iterate = iterate.nextNode;
+            }
+            else{
+                firstNode = null;
+                return iterate;
+            }
+            while(iterate.nextNode != null){
+                iterate = iterate.nextNode;
+                nodeBefore = nodeBefore.nextNode;
+            }
+            nodeBefore.nextNode = null;
+            return iterate;
         }
         return null;
+    }
+    /**
+     * Erases the linkedlist.
+     */
+    public void erase(){
+        if(firstNode != null){
+            firstNode = null;
+        }
     }
 
     /**
@@ -96,16 +135,58 @@ public class LinkedList{
         }
         return i;
     }
+    /**
+     * Detects whether the list has a cycle.
+     * @return true if a cycle is found; false otherwise
+     */
+    public boolean hasCycle(){
+        HashMap<Node, Boolean> cycle = new HashMap<>();
+        Node iterate = firstNode;
+        while(iterate != null){
+            if(cycle.containsKey(iterate)){
+                return true;
+            }
+            else{
+                cycle.put(iterate, true);
+            }
+            iterate = iterate.nextNode;
+        }
+        return false;
+    }
 
     /**
      * Prints the Linked List
      */
-    public void printList(){
+    public String printList(){
         Node iterate = firstNode;
+        String nodes = "";
         while(iterate != null){
-            System.out.print(iterate.value+"    ");
+            nodes += iterate.value+"    ";
             iterate = iterate.nextNode;
         }
-        System.out.print("\n");
+        return nodes;
     }
+
+    /**
+     * Checks if linked list is palindrome
+     * @return true if it is palindrome, false otherwise
+     */
+    public boolean palindrome(){
+        Stack<Integer> oppositeDirection = new Stack<Integer>();
+        Node iterate = firstNode;
+        while(iterate != null){
+            Integer i = iterate.value;
+            oppositeDirection.push(iterate.value);
+            iterate = iterate.nextNode;
+        }
+        iterate = firstNode;
+        while(iterate != null){
+            if(iterate.value != oppositeDirection.pop()){
+                return false;
+            }
+            iterate = iterate.nextNode;
+        }
+        return true;
+    }
+
 }
