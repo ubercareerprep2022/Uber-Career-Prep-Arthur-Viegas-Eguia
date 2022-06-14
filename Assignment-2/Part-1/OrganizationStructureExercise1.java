@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.LinkedList;
-public class OrganizationStructure {
+public class OrganizationStructureExercise1 {
   public Employee ceo;
 
   public static class Employee {
