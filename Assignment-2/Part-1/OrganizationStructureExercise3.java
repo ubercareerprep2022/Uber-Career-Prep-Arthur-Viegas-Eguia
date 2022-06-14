@@ -27,18 +27,6 @@ public class OrganizationStructureExercise1 {
       }
     System.out.println(count);
   }
-  private void printLevelByLevel(){
-    LinkedList<Employee> queue = new LinkedList<>();
-    LinkedList <Employee> nextLevel = new LinkedList<>();
-    queue.add(ceo);
-    while (queue.peek() != null){
-      for(int i = 0; i < queue.size(); i ++){
-        if(queue.get(i).directReports != null){
-          for(Employee reports : queue.get(i).directReports){
-            nextLevel.add(reports);
-          }
-        }
-      }
         while(!queue.isEmpty()){
           Employee employee = queue.removeFirst();
           System.out.println("Name: "+employee.name+" Title: "+employee.title);
