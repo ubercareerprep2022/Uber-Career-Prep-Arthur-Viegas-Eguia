@@ -1,53 +1,86 @@
 import java.util.*;
 class GraphWithAdjacencyList {
-    private Map<Integer, List<Integer>> adjNodes = new HashMap<>();
+    private Map<GraphNode, List<GraphNode>> adjNodes = new HashMap<>();
+    private Map<Integer, GraphNode> listIndex = new HashMap<>();
     public void addNode(int key) {
-        adjNodes.put(key, new LinkedList<Integer>());
+        GraphNode v = new GraphNode(key);
+        adjNodes.put(v, new LinkedList<GraphNode>());
+        listIndex.put(key, v);
     }
     public void removeNode(int key){
-        adjNodes.remove(key);
+        adjNodes.remove(listIndex.get(key));
+        listIndex.remove(key);
     }
     public void addEdge(int node1, int node2){
-        adjNodes.get(node1).add(node2);
+        GraphNode n1 = listIndex.get(node1);
+        GraphNode n2 = listIndex.get(node2);
+        adjNodes.get(n1).add(n2);
+        adjNodes.get(n2).add(n1);
     }
     void removeEdge(int node1, int node2){
-        adjNodes.remove(Integer.valueOf(2));
+        GraphNode n1 = listIndex.get(node1);
+        GraphNode n2 = listIndex.get(node2);
+        adjNodes.remove(n1);
+        adjNodes.remove(n2);
+        listIndex.remove(node1);
+        listIndex.remove(node2);
     }
-    List<Integer> getAdjNodes(int key){
-        return adjNodes.get(key);
+    List<GraphNode> getAdjNodes(int key){
+        return adjNodes.get(listIndex.get(key));
     }
-    public List<Integer> depthFirtst(int key){
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        LinkedList<Integer> arr = new LinkedList<>();
-        LinkedList<Integer> path = new LinkedList<>();
-        arr.addFirst(key);
-        while (arr.size() != 0){
-            int temp = arr.removeFirst();
-            path.add(temp);
-            visited.put(temp, true);
-            for(int val : getAdjNodes(temp)){
-                if(visited.get(temp) != null){
-                    arr.addFirst(val);
+    public void DFS(int key){
+        HashSet<GraphNode> visited = new HashSet<>();
+        LinkedList<GraphNode> stack = new LinkedList<>();
+        stack.addFirst(listIndex.get(key));
+        visited.add(listIndex.get(key));
+        while (stack.size() != 0){
+            GraphNode temp = stack.removeFirst();
+            System.out.print(temp.data+"\t");
+            for(GraphNode val : getAdjNodes(temp.data)){
+                if(!(visited.contains(val))){
+                    stack.addFirst(val);
+                    visited.add(val);
                 }
             }
         }
-        return path;
     }
-    public List<Integer> bredthFirtst(int key){
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        LinkedList<Integer> arr = new LinkedList<>();
-        LinkedList<Integer> path = new LinkedList<>();
-        arr.addLast(key);
-        while (arr.size() != 0){
-            int temp = arr.removeFirst();
-            path.add(temp);
-            visited.put(temp, true);
-            for(int val : getAdjNodes(temp)){
-                if(visited.get(temp) != null){
-                    arr.addLast(val);
+    public void BFS(int key){
+        HashSet<GraphNode> visited = new HashSet<>();
+        LinkedList<GraphNode> queue = new LinkedList<>();
+        queue.addLast(listIndex.get(key));
+        visited.add(listIndex.get(key));
+        while (queue.size() != 0){
+            GraphNode temp = queue.removeFirst();
+            visited.add(temp);
+            System.out.print(temp.data+"\t");
+            for(GraphNode val : getAdjNodes(temp.data)){
+                if(!visited.contains(val)){
+                    queue.addLast(val);
+                    visited.add(val);
                 }
             }
         }
-        return path;
     }
+    public static class GraphNode {
+        public int data;
+        GraphNode(int data) {
+          this.data = data;
+        }
+      }
+      public static void main(String[] args) {
+        GraphWithAdjacencyList test = new GraphWithAdjacencyList();
+        test.addNode(7);
+        test.addNode(2);
+        test.addNode(4);
+        test.addNode(6);
+        test.addNode(0);
+        test.addEdge(7, 4);
+        test.addEdge(7, 2);
+        test.addEdge(2, 4);
+        test.addEdge(2, 0);
+        test.addEdge(4, 6);
+        test.addEdge(6, 0);
+        test.DFS(0);
+      }
+      
 }
