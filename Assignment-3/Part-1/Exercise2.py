@@ -10,7 +10,7 @@ def readIntegers(file, target):
             break
         num = file.readline()
     return arr
-def readAndSort(fileName, target):
+def parseFiles(fileName, target):
     count = 1
     file = open(fileName, "r")
     arr = readIntegers(file, target)
@@ -26,7 +26,7 @@ def readAndSort(fileName, target):
         arr = readIntegers(file, target)
         count += 1
     file.close()
-def heapSort():
+def sortFiles():
     file = open("output.txt","w+")
     heap = []
     for tempFiles in os.listdir("./temp"):
@@ -44,6 +44,6 @@ def heapSort():
             minVal[1].close()
     file.close()
 def externalSort(fileName, target):
-    readAndSort(fileName, target)
-    heapSort()
+    parseFiles(fileName, target)
+    sortFiles()
 externalSort("input.txt", 100)
